@@ -51,4 +51,4 @@ python scripts/package-public.py
 
 `dist/project-factory-public.zip`과 파일 목록·크기·SHA-256을 기록한 manifest가 생깁니다. Windows 런처·전체 앱·문서·양식·가상 예시·개발 스크립트를 포함하고 개인 자료·설치 폴더·Word 화면 캡처·내부 작업 계획을 제외합니다. 기존 파일을 삭제하지 않습니다.
 
-현재 자동 검사는 Windows에서 수행했으며 다른 운영체제의 실제 UI는 별도로 검증해야 합니다. 소유자가 정할 라이선스는 공개 단계의 남은 항목입니다. [새 폴더 설치·패키지 검사 결과](verification-public-package.md)를 참고하세요.
+현재 자동 검사는 Windows에서 수행했으며 다른 운영체제의 실제 UI는 별도로 검증해야 합니다. 자체 자료에는 MIT 라이선스를 적용합니다. [새 폴더 설치·패키지 검사 결과](verification-public-package.md)를 참고하세요.

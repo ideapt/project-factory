@@ -48,7 +48,7 @@ git commit -m "Prepare project factory planning workspace"
 git branch -M main
 ```
 
-그 뒤 `git remote add origin`과 실제 저장소 주소를 입력하고 `git push -u origin main`을 실행합니다. 이 안내를 작성하면서 해당 명령을 실행하거나 사용자 계정에 게시하지는 않았습니다.
+그 뒤 `git remote add origin`과 실제 저장소 주소를 입력하고 `git push -u origin main`을 실행합니다. 최초 게시에서는 위와 같은 절차로 공개 파일을 main 브랜치에 업로드했습니다. 저장소: https://github.com/ideapt/project-factory
 
 ## 배포 전 확인
 
