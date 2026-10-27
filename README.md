@@ -60,4 +60,4 @@ Python이 없다면 `prototype/index.html`을 직접 열어 작성·문서 다�
 
 [변경 이력](CHANGELOG.md) · [기여 방법](CONTRIBUTING.md) · [참고 출처](SOURCES.md) · [외부 도구·글꼴 고지](THIRD_PARTY_NOTICES.md)
 
-자체 코드·문서·양식은 MIT 조건에 따라 이용할 수 있습니다. 외부 도구·OCR 모델·글꼴의 고지는 별도로 유지합니다. GitHub Pages 웹 서비스 배포는 별도 작업입니다.
+자체 코드·문서·양식은 MIT 조건에 따라 이용할 수 있습니다. 외부 도구·OCR 모델·글꼴의 고지는 별도로 유지합니다. 설치 없이 사용하는 웹 화면은 상단 바로가기로 접속합니다.
