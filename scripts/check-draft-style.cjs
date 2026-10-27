@@ -1,7 +1,8 @@
 'use strict';
 const fs=require('node:fs'),assert=require('node:assert/strict'),C=require('../prototype/catalog.js'),D=require('../prototype/draft-engine.js');
-const before=fs.readFileSync('examples/draft-style-before.md','utf8'),example=JSON.parse(fs.readFileSync('examples/material-draft-demo.json','utf8')),after=D.generate(C,example);
-assert.equal(after,fs.readFileSync('examples/draft-style-after.md','utf8'));
+const readExample=p=>fs.readFileSync(p,'utf8').replace(/\r\n/g,'\n');
+const before=readExample('examples/draft-style-before.md'),example=JSON.parse(fs.readFileSync('examples/material-draft-demo.json','utf8')),after=D.generate(C,example);
+assert.equal(after,readExample('examples/draft-style-after.md'));
 const numbers=s=>(s.match(/\d+(?:[.,]\d+)*/g)||[]).sort();
 const statusMarkers=s=>(s.match(/\[미확인:[^\]]+\]|미확인 —[^\n]*/g)||[]).sort();
 assert.deepEqual(numbers(after),numbers(before),'수치 변경');assert.deepEqual(statusMarkers(after),statusMarkers(before),'미확인 상태 변경');

@@ -8,7 +8,7 @@ root = Path(__file__).resolve().parent.parent
 out = root / 'dist'
 out.mkdir(exist_ok=True)
 top = {'README.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'SOURCES.md',
-       'THIRD_PARTY_NOTICES.md', '.gitignore', 'package.json', 'package-lock.json',
+       'THIRD_PARTY_NOTICES.md', '.gitignore', '.gitattributes', 'package.json', 'package-lock.json',
        '로컬 실행.cmd', 'LICENSE', 'LICENSE.md'}
 folders = {'prototype', 'templates', 'examples', 'docs', 'scripts', '.github'}
 excluded = {'node_modules', '.git', 'private', 'raw-private', 'dist', '__pycache__'}
