@@ -1,0 +1,32 @@
+{
+  "version": "0.5.0",
+  "selected": ["hotel-housekeeping"],
+  "common": {
+    "title": "객실정비 운영 개선 — 가상 학습 예시",
+    "target": "가상 A호텔 객실정비 업무",
+    "period": "시범 기간 미확인",
+    "context": "[가상 상황] 오전 퇴실 집중에 따른 객실 준비 지연을 검토한다.",
+    "goal": "[제안] 객실 준비 지연을 줄이되 기준선과 목표 수치는 추가 조사 후 정한다.",
+    "execution": "[제안] 입퇴실·정비·검수 시간을 먼저 기록하고 제한된 시범 배치를 비교한다. 담당·일정·비용은 미확인이다."
+  },
+  "answers": {
+    "hotel-housekeeping": {
+      "객실 유형·상태·입퇴실 집중은 어떤가요?": "[가상 상황] 오전에 퇴실 객실이 집중된다는 가정으로 배치를 검토한다.",
+      "정비·검수·인계 시간은 얼마인가요?": "미확인 — 실제 정비·검수·인계 시간을 별도로 측정해야 한다."
+    }
+  },
+  "checks": [],
+  "materials": {
+    "E-hotel-housekeeping-1": {
+      "kind": "sample",
+      "source": "학습용 가상 대장 — 실제 외부 원자료 없음",
+      "period": "가상 10월 첫 주 / 객실 수",
+      "content": "가상값: 퇴실 객실 20개가 오전에 집중되는 상황을 가정했다.",
+      "limit": "모든 값은 설명용이며 실제 수요·현장 근거가 아니다."
+    }
+  },
+  "references": {
+    "common:context": "E-hotel-housekeeping-1",
+    "hotel-housekeeping:객실 유형·상태·입퇴실 집중은 어떤가요?": "E-hotel-housekeeping-1"
+  }
+}

@@ -1,0 +1,6 @@
+'use strict';
+const assert=require('node:assert/strict'),O=require('../prototype/ocr-reader.js');
+const data={blocks:[{paragraphs:[{lines:[{text:'객실 20',confidence:92,bbox:{x0:0,y0:0,x1:100,y1:30},words:[{text:'객실',confidence:95},{text:'20',confidence:60}]},{text:'정비 시간',confidence:95,words:[{text:'정비',confidence:96},{text:'시간',confidence:95}]}]}]}]};
+const lines=O.lines(data);assert(lines[0].uncertain);assert(!lines[1].uncertain);assert(O.lines({text:'score missing'})[0].uncertain);assert.equal(O.lines({text:''}).length,0);
+async function main(){const {createWorker}=require('tesseract.js');const worker=await createWorker('kor',1,{langPath:require('node:path').resolve('prototype/vendor/ocr'),cacheMethod:'none'});try{const ret=await worker.recognize('examples/upload-fixtures/synthetic-scan.png',{}, {text:true,blocks:true});const result=O.lines(ret.data);assert(ret.data.text.includes('20'));assert(ret.data.text.includes('객실'));assert(result.length>1);assert(result.some(x=>x.bbox&&x.words.length));console.log('OCR 검증 통과: 실제 한국어·영어 이미지 인식, 문장·단어 점수·좌표, 낮은 점수·점수 없음 미확인');require('node:fs').writeFileSync('examples/upload-fixtures/ocr-test-result.json',JSON.stringify({synthetic:true,text:ret.data.text,lines:result},null,2));}finally{await worker.terminate();}}
+main().catch(e=>{console.error(e);process.exitCode=1;});

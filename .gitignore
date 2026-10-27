@@ -1,0 +1,18 @@
+# 로컬 작업 파일과 비공개 조사 자료
+.env
+.env.*
+!.env.example
+private/
+raw-private/
+*.tmp
+~$*
+Thumbs.db
+.DS_Store
+node_modules/
+
+dist/
+__pycache__/
+*.pyc
+# Internal planning and native Word screenshots
+docs/superpowers/
+examples/export/word-*.png

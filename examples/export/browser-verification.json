@@ -1,0 +1,14 @@
+{
+  "browser": "Codex in-app browser",
+  "testURL": "http://127.0.0.1:8872/prototype/",
+  "wordTables": 4,
+  "tocSections": 9,
+  "pdfPages": 5,
+  "pdfInternalLinks": 68,
+  "allModelTextPreserved": true,
+  "numbersAndUnknownPreserved": true,
+  "downloadedFiles": [
+    "browser-downloaded.docx",
+    "browser-downloaded.pdf"
+  ]
+}

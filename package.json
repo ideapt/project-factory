@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@tesseract.js-data/eng": "1.0.0",
+    "@tesseract.js-data/kor": "1.0.0",
+    "esbuild": "0.25.12",
+    "exceljs": "4.4.0",
+    "fflate": "0.8.3",
+    "pdfjs-dist": "6.4.299",
+    "pdfmake": "0.2.20",
+    "tesseract.js": "7.0.0"
+  },
+  "name": "project-factory-standard",
+  "private": true,
+  "scripts": {
+    "build:vendor": "node scripts/build-file-vendor.cjs",
+    "check": "node scripts/check-planning.cjs && node scripts/check-draft.cjs && node scripts/check-files.cjs && node scripts/check-ocr.cjs && node scripts/check-draft-style.cjs && node scripts/check-export.cjs",
+    "build:export": "node scripts/build-export-vendor.cjs"
+  },
+  "license": "MIT"
+}
