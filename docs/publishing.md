@@ -59,4 +59,4 @@ git branch -M main
 - [ ] 새 폴더에서 앱을 실행하고 예시 JSON으로 문서 다운로드를 확인했다.
 - [ ] 업로드 후 Actions 검사 결과와 README 링크를 확인했다.
 
-GitHub Pages는 별도 설정·검증이 필요한 후속 작업입니다. 저장소에 올리는 것만으로 사용자가 접속할 웹 서비스가 자동 생성되지는 않습니다.
+GitHub Pages 주소는 https://ideapt.github.io/project-factory/ 입니다. main 브랜치 변경은 자동 검사 후 앱 파일만 dist/site에 모아 배포합니다. 비공개 작업 폴더·사용자 원자료를 배포 디렉터리에 넣지 않습니다.

@@ -102,6 +102,19 @@ async function exportDocument(format){
 $('#export-docx').addEventListener('click',()=>exportDocument('docx'));
 $('#export-pdf').addEventListener('click',()=>exportDocument('pdf'));
 $('#export-json').addEventListener('click',()=>download(JSON.stringify(state,null,2),'application/json;charset=utf-8','.json'));
+$('#load-demo').addEventListener('click',async()=>{
+ const button=$('#load-demo');button.disabled=true;
+ try{
+  if(state.selected.length||Object.values(state.common).some(Boolean)||Object.keys(state.materials).length||state.imports.length||Object.keys(state.answers).length){if(!confirm('현재 작성 내용을 가상 호텔 예시로 바꿉니다. 필요한 내용은 먼저 JSON으로 백업하세요. 계속할까요?'))return;}
+  const url=window.location?.protocol==='file:'?'../examples/material-draft-demo.json':'demo.json';
+  const response=await fetch(url);if(!response.ok)throw Error('예시 파일을 읽지 못했습니다.');
+  const next=normalize(await response.json());state=next;fillCommon();refresh();save();
+  $('#draft-preview').textContent=exportMarkdown();$('#draft-status').textContent='가상 자료로 만든 연습용 초안입니다. 실제 현장 근거가 아니며 미확인 상태를 유지합니다.';
+  $('#demo-status').textContent='가상 호텔 예시를 불러왔습니다. 아래에서 초안을 검토하고 워드·PDF로 내려받으세요.';
+  $('#composer').scrollIntoView({behavior:'smooth',block:'start'});
+ }catch(e){$('#demo-status').textContent='예시 불러오기 실패 — 웹 주소로 접속하거나 examples/material-draft-demo.json을 백업 불러오기로 선택하세요.';}
+ finally{button.disabled=false;}
+});
 $('#import-button').addEventListener('click',()=>$('#import-file').click());
 $('#import-file').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>30*1024*1024)throw new Error('30MB 이하의 백업을 선택하세요.');const next=normalize(JSON.parse(await f.text()));if(confirm('현재 작성 내용을 백업으로 바꿉니다. 필요한 내용은 먼저 JSON으로 저장하세요. 계속할까요?')){state=next;fillCommon();refresh();save();}}catch(err){alert('불러오기 실패: '+err.message);}finally{e.target.value='';}});
 $('#reset').addEventListener('click',()=>{if(confirm('이 브라우저의 현재 작성 내용을 초기화할까요? 필요한 내용은 먼저 JSON으로 백업하세요.')){state=blank();fillCommon();refresh();save();}});

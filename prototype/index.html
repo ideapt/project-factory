@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>프로젝트 공장 — 기획 선택과 통합</title>
+  <meta name="description" content="직무·사업장·목적별 기획을 선택하고 자료·출처를 연결해 워드와 PDF 기획서를 만드세요. 자료는 브라우저에서 처리합니다.">
   <link rel="stylesheet" href="style.css">
   <script src="vendor/fflate.min.js" defer></script><script src="vendor/exceljs.min.js" defer></script><script src="vendor/pdf-worker.js" defer></script><script src="vendor/pdf.js" defer></script>
   <script src="vendor/ocr/tesseract.min.js" defer></script><script src="ocr-reader.js" defer></script><script src="catalog.js" defer></script><script src="catalog-v04.js" defer></script><script src="draft-engine.js" defer></script><script src="file-reader.js" defer></script>
@@ -20,7 +21,7 @@
     </aside>
     <main id="main">
       <section class="hero"><div><span class="eyebrow">FROM QUESTION TO DECISION</span><h1>기획을 고르고,<br>하나의 계획으로 연결하세요.</h1><p>한 가지 업무부터 호텔·재무·시설을 아우르는 통합기획까지.<br>공통 내용은 한 번만, 분야별 질문은 빠짐없이 작성합니다.</p></div><div class="hero-mark" aria-hidden="true"><span>기획</span><i></i><div><b>전략</b><b>사업</b><b>운영</b></div></div></section>
-      <section class="preset-section" aria-labelledby="preset-title"><div class="section-title"><h2 id="preset-title">추천 조합으로 시작</h2><span>선택 목록에 추가됩니다</span></div><div id="presets" class="presets"></div></section>
+      <section class="preset-section" aria-labelledby="preset-title"><div class="section-title"><h2 id="preset-title">추천 조합으로 시작</h2><span>선택 목록에 추가됩니다</span></div><p>처음이라면 <button id="load-demo">가상 호텔 예시로 시작</button>을 눌러 초안과 워드·PDF 다운로드를 연습하세요. 입력한 자료는 이 브라우저에서 처리하며 서버로 보내지 않습니다.</p><p id="demo-status" role="status"></p><div id="presets" class="presets"></div></section>
       <section class="filter-panel" aria-label="기획 조건 좁히기"><div class="filter-grid"><label>내 직무<select id="filter-roles"></select></label><label>사업장<select id="filter-workplaces"></select></label><label>기획 목적<select id="filter-purposes"></select></label><button id="clear-filters">검색·조건 초기화</button></div><p id="filter-summary" role="status"></p><p>세 조건을 모두 만족하는 기획을 보여줍니다. 탐색 조건을 바꿔도 아래에서 선택한 기획과 답변은 유지됩니다.</p></section>
       <section class="workspace"><div class="library-view"><div class="section-title"><h2 id="group-title">전체 기획 둘러보기</h2><span id="result-count"></span></div><div id="cards" class="cards"></div></div>
       <section id="detail" class="detail" aria-labelledby="detail-title"></section></section>

@@ -14,7 +14,8 @@
   "scripts": {
     "build:vendor": "node scripts/build-file-vendor.cjs",
     "check": "node scripts/check-planning.cjs && node scripts/check-draft.cjs && node scripts/check-files.cjs && node scripts/check-ocr.cjs && node scripts/check-draft-style.cjs && node scripts/check-export.cjs",
-    "build:export": "node scripts/build-export-vendor.cjs"
+    "build:export": "node scripts/build-export-vendor.cjs",
+    "build:web": "node scripts/build-web.cjs"
   },
   "license": "MIT"
 }

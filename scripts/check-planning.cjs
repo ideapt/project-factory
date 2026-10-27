@@ -9,7 +9,7 @@ for(const [key,values]of Object.entries(C.facets)){
 }
 for(const t of C.types){assert(C.groups.some(g=>g.id===t.group));assert.equal(t.questions.length,4);assert(t.data.length&&t.metrics.length&&t.gate&&t.outputs.length);const text=fs.readFileSync(path.join(root,'templates/catalog',t.id+'.md'),'utf8');for(const q of t.questions)assert(text.includes(q));}
 for(const p of C.presets){assert(p.ids.length>1);for(const id of p.ids)assert(C.types.some(t=>t.id===id));}
-const walk=p=>fs.readdirSync(p,{withFileTypes:true}).flatMap(e=>['.git','node_modules'].includes(e.name)?[]:e.isDirectory()?walk(path.join(p,e.name)):[path.join(p,e.name)]);
+const walk=p=>fs.readdirSync(p,{withFileTypes:true}).flatMap(e=>['.git','node_modules','dist'].includes(e.name)?[]:e.isDirectory()?walk(path.join(p,e.name)):[path.join(p,e.name)]);
 const files=walk(root);let links=0;
 for(const f of files.filter(f=>f.endsWith('.md'))){const s=fs.readFileSync(f,'utf8');assert(!s.includes('\ufffd'),`인코딩: ${f}`);for(const m of s.matchAll(/\]\(([^)]+)\)/g)){if(/^(https?:|#)/.test(m[1]))continue;const link=decodeURIComponent(m[1].split('#')[0]);assert(fs.existsSync(path.resolve(path.dirname(f),link)),`링크 오류 ${f}: ${link}`);links++;}}
 // 브라우저 API를 흉내 내는 최소 입력 환경에서 선택·복원·내보내기 논리를 확인합니다.
@@ -44,5 +44,8 @@ console.log(`검증 통과: 3개 탐색 축, 16개 직무·8개 사업장·8개 
  const sameState=JSON.stringify(app.getState());context.window.PlanningExport={...context.window.PlanningExport,pdf:async()=>{throw Error('가상 생성 실패');}};
  await events['#export-pdf:click']();assert(node('#export-status').textContent.includes('가상 생성 실패'));assert.equal(node('#export-pdf').disabled,false);assert.equal(JSON.stringify(app.getState()),sameState);
  vm.runInNewContext('state.selected=[]',context);const count=exports.length;await events['#export-docx:click']();assert.equal(exports.length,count);assert(node('#export-status').textContent.includes('먼저'));
+ context.fetch=async()=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(path.join(root,'examples/material-draft-demo.json'),'utf8'))});
+ await events['#load-demo:click']();assert(app.getState().selected.includes('hotel-housekeeping'));assert(node('#draft-preview').textContent.includes('20개'));assert(node('#draft-preview').textContent.includes('미확인 — 가상·연습 자료'));assert.equal(node('#load-demo').disabled,false);
+ const demoState=JSON.stringify(app.getState());context.fetch=async()=>{throw Error('가상 네트워크 실패');};await events['#load-demo:click']();assert.equal(JSON.stringify(app.getState()),demoState);assert(node('#demo-status').textContent.includes('실패'));assert.equal(node('#load-demo').disabled,false);
  console.log('다운로드 연결 검사 통과: 현재 초안 일치·DOCX 생성·오류 안내·버튼 복구·빈 선택 안내·입력 보존');
 })().catch(e=>{console.error(e);process.exitCode=1;});
