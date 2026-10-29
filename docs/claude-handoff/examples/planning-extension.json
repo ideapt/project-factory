@@ -1,0 +1,68 @@
+{
+  "_notice": "가상 시험용 추가 필드 제안. 현재 앱용 완성 작성본 아님.",
+  "planning": {
+    "meta": {
+      "purpose": "가상 객실정비 운영 개선 검토",
+      "submissionTarget": "가상 내부 검토"
+    },
+    "alternatives": [
+      {
+        "id": "alt-current",
+        "name": "현행 유지",
+        "effect": "가상 기준선 조사 후 비교",
+        "cost": "",
+        "period": "",
+        "conditions": "",
+        "risk": "미확인 — 현재 방식의 지연 원인",
+        "referenceIds": [
+          "E-hotel-housekeeping-1"
+        ]
+      },
+      {
+        "id": "alt-pilot",
+        "name": "[제안] 정비·검수 시간 기록 후 배치 비교",
+        "effect": "[가정] 준비 지연 감소 가능성",
+        "cost": "",
+        "period": "",
+        "conditions": "원자료·인원·시범 범위 확보 필요",
+        "risk": "미확인 — 추가 업무량",
+        "referenceIds": []
+      }
+    ],
+    "actions": [
+      {
+        "id": "action-collect",
+        "task": "[제안] 입퇴실·정비·검수 시간 기록",
+        "owner": "",
+        "due": "",
+        "resources": "기록 양식·담당자 검토",
+        "prerequisites": "자료 이용 범위 확정",
+        "completion": "누락·기간·단위를 확인한 기록 확보",
+        "referenceIds": [
+          "E-hotel-housekeeping-1"
+        ]
+      }
+    ],
+    "risks": [
+      {
+        "id": "risk-source",
+        "risk": "[가정] 기록 누락으로 비교 왜곡 가능",
+        "response": "[제안] 누락 표시·원자료 대조",
+        "decisionCondition": "주요 원자료 미확보 시 판단 보류",
+        "owner": "",
+        "referenceIds": []
+      }
+    ],
+    "financials": {
+      "costs": "",
+      "benefits": "[가정] 시간·품질 개선 가능성, 실제 효과 미확인",
+      "cashTiming": "",
+      "formula": "총 작업 시간 = 객실 수 × 객실당 작업 시간",
+      "inputBasis": "가상값·미확인 자료를 실제 실적으로 사용하지 않음",
+      "result": "",
+      "referenceIds": [
+        "E-hotel-housekeeping-1"
+      ]
+    }
+  }
+}
