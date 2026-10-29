@@ -16,5 +16,5 @@ s.materials[id]={kind:'actual',source,period:'2026-10-27 / 객실 수',content:e
 const snapshot=JSON.stringify(s),md=D.generate(C,s);assert.equal(JSON.stringify(s),snapshot,'작성 데이터 변경');
 for(const text of [s.common.context,s.answers['hotel-housekeeping'][q],source,excerpt,trace.location,trace.sha256,'OCR / 인식 점수 62','미확인 — 표본 전체 여부'])assert(md.includes(text),'보호 내용 누락: '+text);
 assert(md.includes('[미확인: 연결된 실제 근거 없음]'));assert(md.includes('미확인 — 불확실한 파일 추출'));assert(!md.includes('검증 완료'));
-assert(after.includes('입력한 내용과 자료를 정리한 초안입니다.'));assert(!after.includes('자료를 구조화했습니다.'));assert(!after.includes('사용자 입력 자료 요약:'));
+assert(after.includes('- 작성 기준: 입력 내용·수집 자료'));assert(after.includes('- 적용 대상:'));assert(after.includes('1. 자료 확보: 조사 담당·수집처·기준 기간 확정, 원자료 수집'));assert(!after.includes('자료를 구조화했습니다.'));assert(!after.includes('사용자 입력 자료 요약:'));
 console.log('문장 검증 통과: 예시 수치·미확인 상태 동일, 입력문·직접 인용·부정·출처·파일 위치·해시·OCR 점수 보존, 원본 데이터 무변경');
