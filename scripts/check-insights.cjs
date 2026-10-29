@@ -1,10 +1,11 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),{DatabaseSync}=require('node:sqlite');
-const {createTracker}=require('../prototype/insights.js');
+const {createTracker,resolveAudience,OPERATOR_KEY}=require('../prototype/insights.js');
 (async()=>{
  const source=fs.readFileSync('services/insights/worker/index.js','utf8'),{createHandler}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
  const sqlite=new DatabaseSync(':memory:');sqlite.exec(fs.readFileSync('services/insights/drizzle/0000_insights.sql','utf8'));
  sqlite.exec(fs.readFileSync('services/insights/drizzle/0001_test_records.sql','utf8'));
+ sqlite.exec(fs.readFileSync('services/insights/drizzle/0002_operator_records.sql','utf8'));
  const DB={prepare(sql){let params=[];const statement={bind(...p){params=p;return statement;},async first(){return sqlite.prepare(sql).get(...params)||null;},async all(){return {results:sqlite.prepare(sql).all(...params)};},async run(){return sqlite.prepare(sql).run(...params);}};return statement;},async batch(items){const result=[];for(const s of items)result.push(await s.run());return result;}};
  let time=1793246400000;const worker=createHandler(()=>time),env={DB,ADMIN_EMAIL:'owner@example.test',FEEDBACK_ENABLED:'true'};
  const client=crypto.randomUUID(),origin='https://ideapt.github.io',host='https://test.example';
@@ -38,5 +39,20 @@ const {createTracker}=require('../prototype/insights.js');
  const trial=await (await worker.fetch(new Request(host+'/api/admin?scope=test',{headers:auth}),env)).json();
  assert.equal(real.daily[0].pdf,1);assert.equal(real.ratings.total,2);assert.equal(real.ratings.average,4);
  assert.equal(trial.daily[0].pdf,1);assert.equal(trial.ratings.total,1);assert.equal(trial.ratings.average,5);assert.equal(trial.feedback[0].message,'시험 모드 의견');assert.equal(tracker.consent(),false);
+ // A browser designation must persist on ordinary URLs, and never alter test classification.
+ assert.equal(resolveAudience({storage,search:'?insights=operator'}).audience,'operator');
+ assert.equal(resolveAudience({storage,search:''}).audience,'operator');
+ assert.equal(resolveAudience({storage,search:'?insights=test'}).audience,'test');
+ assert.equal(storage.getItem(OPERATOR_KEY),'true');
+ const owner=createTracker({storage,fetcher:browserFetch,uuid:()=>crypto.randomUUID(),now:()=>time,enabled:true,operatorMode:()=>storage.getItem(OPERATOR_KEY)==='true'});
+ assert.equal(await owner.visit(),false);owner.setConsent(true);await owner.visit();await owner.download('.docx');await owner.download('.pdf');await owner.feedback({rating:2,category:'general',message:'운영자 기록',consent:true});
+ const adminData=async scope=>(await (await worker.fetch(new Request(host+'/api/admin?scope='+scope,{headers:auth}),env)).json());
+ const userAfter=await adminData('real'),ownerAfter=await adminData('operator'),testAfter=await adminData('test');
+ assert.deepEqual(userAfter.daily,real.daily);assert.deepEqual(userAfter.ratings,real.ratings);
+ assert.equal(ownerAfter.daily[0].visits,1);assert.equal(ownerAfter.daily[0].docx,1);assert.equal(ownerAfter.daily[0].pdf,1);assert.equal(ownerAfter.ratings.average,2);assert.equal(ownerAfter.feedback[0].message,'운영자 기록');
+ assert.deepEqual(testAfter.daily,trial.daily);assert.deepEqual(testAfter.ratings,trial.ratings);
+ assert.equal((await post('/api/ticket',{client,action:'event',operator:'true'})).status,400);
+ // Classification is fixed on the ticket, not a caller-supplied event field.
+ assert.equal((await post('/api/event',{client,ticket:await ticket(),id:crypto.randomUUID(),kind:'visit',operator:true})).status,400);
  assert(!source.includes('innerHTML'));sqlite.close();console.log('통계·의견 검사 통과: 동의 전 미전송·거부·세션 중복·형식별 집계·원문 제외·일회 제출권·출처·운영자 권한·의견 동의·저장');
 })().catch(e=>{console.error(e);process.exitCode=1;});
