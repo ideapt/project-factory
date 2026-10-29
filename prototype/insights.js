@@ -2,6 +2,7 @@
 'use strict';
 const SERVICE='https://project-factory-insights.iamyangheedong.chatgpt.site',KEY='project-factory-insights-v1',OPERATOR_KEY='project-factory-operator-browser';
 function resolveAudience({storage,search=''}){const requested=new URLSearchParams(search).get('insights');let operator=requested==='operator',persistent=true;try{if(operator)storage.setItem(OPERATOR_KEY,'true');operator=operator||storage.getItem(OPERATOR_KEY)==='true';}catch{persistent=false;}return {audience:requested==='test'?'test':operator?'operator':'real',persistent};}
+function setOperatorBrowser({storage,enabled}){const operator=enabled===true;try{storage.setItem(OPERATOR_KEY,String(operator));return {operator,persistent:true};}catch{return {operator,persistent:false};}}
 function createTracker({storage,fetcher,uuid,now=()=>Date.now(),enabled=false,testMode=false,operatorMode=false}){
  const isOperator=()=>!testMode&&Boolean(typeof operatorMode==='function'?operatorMode():operatorMode);const storageKey=()=>KEY+(testMode?'-test':isOperator()?'-operator':'');let memory={};const read=()=>{try{return JSON.parse(storage.getItem(storageKey())||'{}');}catch{return memory;}};
  const write=v=>{memory=v;try{storage.setItem(storageKey(),JSON.stringify(v));}catch{}};
@@ -13,13 +14,17 @@ function createTracker({storage,fetcher,uuid,now=()=>Date.now(),enabled=false,te
   async download(ext){if(!enabled||read().consent!==true)return false;const kind={'.docx':'docx','.pdf':'pdf','.md':'md'}[ext];if(!kind)return false;await event(kind,uuid());return true;}
  };
 }
-if(typeof module!=='undefined'&&module.exports){module.exports={createTracker,resolveAudience,OPERATOR_KEY,SERVICE,KEY};return;}
+if(typeof module!=='undefined'&&module.exports){module.exports={createTracker,resolveAudience,setOperatorBrowser,OPERATOR_KEY,SERVICE,KEY};return;}
 const mode=resolveAudience({storage:root.localStorage,search:root.location.search}),testMode=mode.audience==='test';
-const isOperator=()=>{try{return root.localStorage.getItem(OPERATOR_KEY)==='true'||mode.audience==='operator';}catch{return mode.audience==='operator';}};
+let operatorFallback=mode.audience==='operator',useOperatorFallback=!mode.persistent;
+const isOperator=()=>{if(useOperatorFallback)return operatorFallback;try{return root.localStorage.getItem(OPERATOR_KEY)==='true';}catch{return operatorFallback;}};
+// Consume the one-time designation URL so an explicit removal survives reload.
+if(new URLSearchParams(root.location.search).get('insights')==='operator'){const clean=new URL(root.location.href);clean.searchParams.delete('insights');root.history.replaceState(null,'',clean.pathname+clean.search+clean.hash);}
 const $=s=>root.document.querySelector(s),tracker=createTracker({testMode,operatorMode:isOperator,storage:root.localStorage,fetcher:root.fetch.bind(root),uuid:()=>root.crypto.randomUUID(),enabled:root.location.origin==='https://ideapt.github.io'&&root.location.pathname.startsWith('/project-factory/')});
 $('#insights-test-banner').hidden=!testMode;
-root.addEventListener('storage',e=>{if(e.key===OPERATOR_KEY)render();});
-function render(){$('#insights-operator-banner').hidden=testMode||!isOperator();$('#operator-storage-warning').hidden=mode.persistent;$('#metrics-status').textContent=tracker.consent()===true?'익명 통계 참여 중입니다. 기획서 내용·제목·파일명은 보내지 않습니다.':tracker.consent()===false?'통계에 참여하지 않습니다. 기획 기능은 그대로 사용할 수 있습니다.':'익명 이용 통계는 선택 사항입니다. 동의 전에는 방문·다운로드 이벤트를 보내지 않습니다.';}
+root.addEventListener('storage',e=>{if(e.key===OPERATOR_KEY||e.key===null)render();});
+$('#operator-toggle').addEventListener('click',()=>{const result=setOperatorBrowser({storage:root.localStorage,enabled:!isOperator()});operatorFallback=result.operator;useOperatorFallback=!result.persistent;mode.persistent=result.persistent;render();});
+function render(){const operator=isOperator();$('#browser-audience').textContent=testMode?'현재 집계: 시험 기록'+(operator?' · 운영자 지정 켜짐':' · 운영자 지정 꺼짐'):operator?'현재 집계: 운영자 · 일반 사용자 통계에서 제외':'현재 집계: 일반 사용자';$('#operator-toggle').textContent=operator?'운영자 지정 해제':'이 브라우저를 운영자로 지정';$('#operator-toggle').setAttribute('aria-pressed',String(operator));$('#browser-audience-help').textContent=testMode?'시험 모드에서는 운영자 지정과 관계없이 시험으로 집계합니다.':operator?'일반 주소로 다시 접속해도 운영자 지정을 유지합니다.':'통계에 동의한 경우 앞으로의 방문·다운로드를 일반 사용자로 집계합니다.';$('#insights-operator-banner').hidden=testMode||!isOperator();$('#operator-storage-warning').hidden=mode.persistent;$('#metrics-status').textContent=tracker.consent()===true?'익명 통계 참여 중입니다. 기획서 내용·제목·파일명은 보내지 않습니다.':tracker.consent()===false?'통계에 참여하지 않습니다. 기획 기능은 그대로 사용할 수 있습니다.':'익명 이용 통계는 선택 사항입니다. 동의 전에는 방문·다운로드 이벤트를 보내지 않습니다.';}
 $('#metrics-allow').addEventListener('click',async()=>{tracker.setConsent(true);render();try{await tracker.visit();}catch{$('#metrics-status').textContent='통계 서버에 연결하지 못했습니다. 기획 기능은 계속 사용할 수 있습니다.';}});
 $('#metrics-decline').addEventListener('click',()=>{tracker.setConsent(false);render();});
 $('#feedback-form').addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget,status=$('#feedback-status'),button=$('#feedback-send');if(!form.reportValidity())return;const rating=$('#feedback-rating').value,message=$('#feedback-message').value.trim();if(!rating&&message.length<2){status.textContent='평점을 선택하거나 의견을 두 글자 이상 작성해 주세요.';return;}button.disabled=true;status.textContent='의견을 보내고 있습니다.';try{await tracker.feedback({rating:rating?Number(rating):null,category:$('#feedback-category').value,message,consent:$('#feedback-consent').checked,website:$('#feedback-website').value});form.reset();status.textContent=testMode?'시험 의견이 저장되었습니다. 일반 사용자 평가에서 제외됩니다.':isOperator()?'운영자 의견으로 저장되었습니다. 일반 사용자 평가에서 제외됩니다.':'의견이 운영자에게 전달되었습니다. 감사합니다.';}catch{status.textContent='의견을 보내지 못했습니다. 작성 내용은 남아 있습니다. 잠시 후 다시 시도해 주세요. 하루에 세 번까지 보낼 수 있습니다.';}finally{button.disabled=false;}});

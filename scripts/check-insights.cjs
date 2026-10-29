@@ -1,6 +1,6 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),{DatabaseSync}=require('node:sqlite');
-const {createTracker,resolveAudience,OPERATOR_KEY}=require('../prototype/insights.js');
+const {createTracker,resolveAudience,setOperatorBrowser,OPERATOR_KEY}=require('../prototype/insights.js');
 (async()=>{
  const source=fs.readFileSync('services/insights/worker/index.js','utf8'),{createHandler}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
  const sqlite=new DatabaseSync(':memory:');sqlite.exec(fs.readFileSync('services/insights/drizzle/0000_insights.sql','utf8'));
@@ -54,5 +54,10 @@ const {createTracker,resolveAudience,OPERATOR_KEY}=require('../prototype/insight
  assert.equal((await post('/api/ticket',{client,action:'event',operator:'true'})).status,400);
  // Classification is fixed on the ticket, not a caller-supplied event field.
  assert.equal((await post('/api/event',{client,ticket:await ticket(),id:crypto.randomUUID(),kind:'visit',operator:true})).status,400);
+ const toggleCount=sent.length,generalConsent=tracker.consent(),operatorConsent=owner.consent();
+ assert.deepEqual(setOperatorBrowser({storage,enabled:false}),{operator:false,persistent:true});
+ assert.equal(resolveAudience({storage,search:''}).audience,'real');assert.equal(owner.consent(),generalConsent);
+ assert.deepEqual(setOperatorBrowser({storage,enabled:true}),{operator:true,persistent:true});assert.equal(owner.consent(),operatorConsent);assert.equal(sent.length,toggleCount);
+ assert.deepEqual(setOperatorBrowser({storage:{setItem(){throw Error('blocked');}},enabled:false}),{operator:false,persistent:false});
  assert(!source.includes('innerHTML'));sqlite.close();console.log('통계·의견 검사 통과: 동의 전 미전송·거부·세션 중복·형식별 집계·원문 제외·일회 제출권·출처·운영자 권한·의견 동의·저장');
 })().catch(e=>{console.error(e);process.exitCode=1;});
