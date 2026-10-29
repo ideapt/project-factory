@@ -2,7 +2,7 @@
 
 기존 GitHub Pages 앱에서 허용한 익명 방문·문서 다운로드 이벤트를 받습니다. 클라우드 D1에 저장하며 운영 화면은 Sites의 검증된 로그인과 소유자 이메일 대조로 보호합니다. 운영자 설정은 런타임 비밀 환경 변수 ADMIN_EMAIL에만 두며 GitHub에 넣지 않습니다.
 
-의견 저장 코드는 준비했으나 FEEDBACK_ENABLED가 true일 때만 동작합니다. 외부 전송 목적지에 대한 사용자 승인 전에는 활성화하거나 앱에 의견 전송 화면을 연결하지 않습니다.
+사용자가 전송 대상을 승인했습니다. 운영 환경에서 FEEDBACK_ENABLED=true로 활성화하며, 개별 사용자의 제출 동의가 있어야 의견을 저장합니다.
 
 - 빌드: `node scripts/build.mjs`
 - 검증: `node scripts/validate-artifact.mjs`

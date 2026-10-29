@@ -28,5 +28,7 @@ const {createTracker}=require('../prototype/insights.js');
  assert.equal(await tracker.visit(),false);assert.equal(sent.length,0);tracker.setConsent(true);assert.equal(await tracker.visit(),true);assert.equal(await tracker.visit(),false);
  const count=sent.length;assert.equal(await tracker.download('.json'),false);assert.equal(sent.length,count);assert.equal(await tracker.download('.docx'),true);
  tracker.setConsent(false);assert.equal(await tracker.download('.pdf'),false);for(const b of sent)assert(!('title'in b)&&!('content'in b)&&!('filename'in b));
+ const before=sent.length;await assert.rejects(()=>tracker.feedback({message:'가상 연결 시험',consent:false}));assert.equal(sent.length,before);
+ await tracker.feedback({rating:null,category:'general',message:'가상 연결 시험',consent:true,content:'전송 금지'});assert.equal(tracker.consent(),false);assert.equal(sent.at(-1).message,'가상 연결 시험');assert(!('content' in sent.at(-1)));assert.equal(sqlite.prepare('SELECT COUNT(*) AS n FROM feedback').get().n,2);
  assert(!source.includes('innerHTML'));sqlite.close();console.log('통계·의견 검사 통과: 동의 전 미전송·거부·세션 중복·형식별 집계·원문 제외·일회 제출권·출처·운영자 권한·의견 동의·저장');
 })().catch(e=>{console.error(e);process.exitCode=1;});
