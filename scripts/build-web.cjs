@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),out=path.join(root,'dist/site');fs.mkdirSync(out,{recursive:true});
 // Publish only app files, never the working directory or source material corpus.
-for(const name of ['index.html','style.css','app.js','catalog.js','catalog-v04.js','draft-engine.js','file-reader.js','ocr-reader.js','document-export.js'])fs.copyFileSync(path.join(root,'prototype',name),path.join(out,name));
+for(const name of ['index.html','style.css','app.js','catalog.js','catalog-v04.js','draft-engine.js','file-reader.js','ocr-reader.js','document-export.js','insights.js'])fs.copyFileSync(path.join(root,'prototype',name),path.join(out,name));
 fs.cpSync(path.join(root,'prototype/vendor'),path.join(out,'vendor'),{recursive:true});
 fs.copyFileSync(path.join(root,'examples/material-draft-demo.json'),path.join(out,'demo.json'));
 fs.writeFileSync(path.join(out,'.nojekyll'),'');

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="vendor/fflate.min.js" defer></script><script src="vendor/exceljs.min.js" defer></script><script src="vendor/pdf-worker.js" defer></script><script src="vendor/pdf.js" defer></script>
   <script src="vendor/ocr/tesseract.min.js" defer></script><script src="ocr-reader.js" defer></script><script src="catalog.js" defer></script><script src="catalog-v04.js" defer></script><script src="draft-engine.js" defer></script><script src="file-reader.js" defer></script>
-  <script src="vendor/export/pdfmake.min.js" defer></script><script src="vendor/export/font.js" defer></script><script src="document-export.js" defer></script><script src="app.js" defer></script>
+  <script src="vendor/export/pdfmake.min.js" defer></script><script src="vendor/export/font.js" defer></script><script src="document-export.js" defer></script><script src="insights.js" defer></script><script src="app.js" defer></script>
 </head>
 <body>
   <header class="top"><a class="brand" href="#main"><span class="logo">P</span><span>프로젝트 공장<small>PLANNING WORKSPACE</small></span></a><span class="version">v0.7 · 스캔 OCR·원본 대조</span><span id="save-status" role="status">작성 준비</span></header>
@@ -49,6 +49,7 @@
         <p id="export-status" role="status">워드·PDF는 현재 입력으로 초안을 다시 만들어 내려받습니다. 목차·출처 표·페이지 번호가 포함됩니다.</p>
         <p class="footnote">원본 파일은 전송·저장하지 않고 추출 내용과 파일 식별값·위치를 작성본에 저장합니다. 용량이 크면 브라우저 저장이 실패할 수 있으니 JSON으로 백업하세요. 추출·초안 구성은 사실·계산 검증을 대신하지 않습니다.</p>
       </section>
+      <section class="composer" aria-labelledby="metrics-title"><h2 id="metrics-title">익명 이용 통계</h2><p>동의한 브라우저의 방문 세션과 기획서 다운로드 요청만 집계합니다. 기획서 본문·제목·업로드 파일·파일명은 전송하지 않습니다. 거부해도 기획 기능은 그대로 사용할 수 있습니다.</p><button id="metrics-allow">익명 통계 허용</button><button id="metrics-decline">통계 거부·참여 중단</button><p id="metrics-status" role="status"></p><p>통계는 수집 시작 이후부터 기록하며 실제 사람 수나 디스크 저장 완료 횟수와 다를 수 있습니다. 익명 이벤트는 90일 보관합니다. 전송 대상은 프로젝트 공장 통계 서버(Sites)입니다.</p><p><a href="https://project-factory-insights.iamyangheedong.chatgpt.site/admin" target="_blank" rel="noopener">운영 통계 확인 (운영자 로그인)</a></p></section>
       <footer>질문 → 근거 → 검증 → 결정 <span>스캔 OCR·원본 대조 · v0.7</span></footer>
     </main>
   </div>

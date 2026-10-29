@@ -16,3 +16,8 @@ __pycache__/
 # Internal planning and native Word screenshots
 docs/superpowers/
 examples/export/word-*.png
+
+.sites-runtime/
+.wrangler/
+.dev.vars*
+outputs/
