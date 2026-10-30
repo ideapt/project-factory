@@ -1,0 +1,152 @@
+{
+  "revision_date": "2026-10-30",
+  "repository": "https://github.com/ideapt/project-factory",
+  "prepared_from_commit": "cefb575bf5dee50f69736a1ba1284d564f81c9a9",
+  "note": "prepared_from_commit is the pre-package checkout, not the archive commit",
+  "implementation_baseline": "35cc6189cd0946f4171a3572e81e23c863cce607",
+  "source_code_included": false,
+  "upgrade_implemented": false,
+  "requested_scope": "implementation, verification, public deployment",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 7238,
+      "sha256": "39200719a0dd59fb03fa02770d362059a2646e81376c876f2de84785d8be164d"
+    },
+    {
+      "path": "docs/claude-handoff/01-current-state.md",
+      "bytes": 4149,
+      "sha256": "bebfb87b3290cd1e3e8bb92f92fdfac57f5be801ab68389505f8e32efcf5080d"
+    },
+    {
+      "path": "docs/claude-handoff/02-upgrade-requirements.md",
+      "bytes": 5849,
+      "sha256": "7f2597c04434c728a9dc664a012706659818958cd2bb3b4a4e1f5c347bf280da"
+    },
+    {
+      "path": "docs/claude-handoff/03-planning-prompt.md",
+      "bytes": 3590,
+      "sha256": "7ca583c3572244f9acac0c624a35ba4ab48ec3362ee51501c667c316d513a047"
+    },
+    {
+      "path": "docs/claude-handoff/04-implementation-plan.md",
+      "bytes": 6430,
+      "sha256": "6a7137df91bcee5a7f76aa78de76ce86bc77db0be2c9febd556acae060c2e141"
+    },
+    {
+      "path": "docs/claude-handoff/05-acceptance-tests.md",
+      "bytes": 4435,
+      "sha256": "8028152edecb31f4a2fbb81566054bc6459ae79e7df9ac20b6d428964c0c3f36"
+    },
+    {
+      "path": "docs/claude-handoff/06-claude-instructions.md",
+      "bytes": 6028,
+      "sha256": "d9478a4556ea2becf2079c62b0e1c290a957c325b41c09913a1c7db817a21a86"
+    },
+    {
+      "path": "docs/claude-handoff/07-business-example.md",
+      "bytes": 3624,
+      "sha256": "1fcb432971e4835a23c00e0769236f687aa53d22d5ba1c5a2add0f4494a06123"
+    },
+    {
+      "path": "docs/claude-handoff/08-delivery-checklist.md",
+      "bytes": 2261,
+      "sha256": "c3f57239fdac7bd0fd7af8f1f6896a5101ea6fd0238bf8025d74124a56033bb4"
+    },
+    {
+      "path": "docs/claude-handoff/09-preparation-validation.md",
+      "bytes": 1737,
+      "sha256": "e8c38a1b980f037c2cad4d1a9af3f502da147ab8f46f9fdec5ccd015807f6e5f"
+    },
+    {
+      "path": "docs/claude-handoff/examples/planning-extension.json",
+      "bytes": 2230,
+      "sha256": "6e5c75e4bbf8e4d98ba4a7f79dc31b7d43799cc7433e10c1e1d7f0488a9a3781"
+    },
+    {
+      "path": "docs/claude-handoff/examples/README.md",
+      "bytes": 2230,
+      "sha256": "24ec9c8e15fc997933c237227e909d5db3ccb50e802b2021ee5f2730190072e6"
+    },
+    {
+      "path": "docs/claude-handoff/README.md",
+      "bytes": 3567,
+      "sha256": "55d85f2a9e6b4e937031fd6b6abee6dd7528d381f2405874b5269d1861f5bce6"
+    },
+    {
+      "path": "docs/development.md",
+      "bytes": 3179,
+      "sha256": "ad3cd73163357969814d678328212767a3aa635d331460207cd57014ec144ea1"
+    },
+    {
+      "path": "docs/document-export.md",
+      "bytes": 2994,
+      "sha256": "1df5202a7aa29429bdf46e3d55b4d343e9cce883402bb37c92a3d18337224498"
+    },
+    {
+      "path": "docs/draft-writing-style.md",
+      "bytes": 2021,
+      "sha256": "8b97f6b582a129d11e15c4442491f41933c2a579441d470a7f4a67767c33eb2f"
+    },
+    {
+      "path": "docs/files-v06.md",
+      "bytes": 5382,
+      "sha256": "57b1c5fcabd953e673a914e565d867f8a300fbee7481a2c449855b53a93779e5"
+    },
+    {
+      "path": "docs/ocr-v07.md",
+      "bytes": 4610,
+      "sha256": "9120f266c1b3624750b6049445338ce20ce39b1b5ea53ad0194a0ea07087a6ef"
+    },
+    {
+      "path": "docs/standard.md",
+      "bytes": 11506,
+      "sha256": "a39419fbb83ab29a9d00fe99f1d899e7e08a4335d60022c8a8cf3e412c8d8417"
+    },
+    {
+      "path": "docs/usage-and-feedback.md",
+      "bytes": 5814,
+      "sha256": "f00da1709a88c009c27c9ed8abd2f58f62d8564df9b204d01510102a1fa113dc"
+    },
+    {
+      "path": "examples/draft-style-after.md",
+      "bytes": 8513,
+      "sha256": "337a336286e5a65bfaf3a735f2ef82475a35ac87c891c98290b5467d5b6bae41"
+    },
+    {
+      "path": "examples/draft-style-before.md",
+      "bytes": 8864,
+      "sha256": "cc409df935c08095f13afc49d71741366006c464cfb15c3ae8d8f8922bbf55e6"
+    },
+    {
+      "path": "examples/material-draft-demo.json",
+      "bytes": 1597,
+      "sha256": "88202aea888d2b1a9ab8a9d7c329e44b8144dd5e0787001a483b922a15a0f95a"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1082,
+      "sha256": "a8ee59d5ce6e583525480f4a9a91730b36eb4ff0e5d31051a280ef0f9da31147"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6840,
+      "sha256": "46dcdf27a3696bdd8bb8232c2a47da8060343928608d9a9bb20e4bc16a06b90a"
+    },
+    {
+      "path": "scripts/package-claude-handoff.py",
+      "bytes": 4805,
+      "sha256": "ce419e5f3e57fd110f2d22d2b6f2fd42dc2345bee03d983793a5d5347d55db60"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 2664,
+      "sha256": "92c14c9cd52a9f615b502bd801c03f8093521af91bee6f335b371205fb1a256e"
+    }
+  ],
+  "archive": {
+    "path": "project-factory-claude-handoff-2026-10-30.zip",
+    "bytes": 59935,
+    "sha256": "e64455cc08f536ede4a945216ed5a30d6ec5b9b666ff6518660a737908852a28"
+  }
+}

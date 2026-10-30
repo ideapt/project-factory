@@ -19,3 +19,13 @@
 - 압축 파일의 무결성·파일 해시는 별도 manifest로 확인.
 - 구현 완료 표시는 08-delivery-checklist.md에서 실제 결과로 갱신.
 - 이전 기능 검사가 통과했다는 사실을 새 요구사항이 구현됐다는 뜻으로 사용하지 않음.
+
+## 2026-10-30 개정 검증
+
+- 개정 내용: 구현·검증·기존 공개 사이트 배포까지 Claude 지시 범위 통일.
+- 이번 변경: 전달 문서·패키지 스크립트·ZIP·파일 해시 목록. 사이트 기능 코드 변경 없음.
+- npm run check: 전체 통과. 내부 링크 검사 308개 통과.
+- 신규 ZIP: 최신 지시문·CRC·파일별 SHA-256·원본 파일 일치 확인.
+- GitHub 게시 파일: downloads/project-factory-claude-handoff-2026-10-30.zip 및 .manifest.json.
+- ZIP 재생성: python scripts/package-claude-handoff.py --date 2026-10-30.
+- 10개 항목 업그레이드 구현·배포: 아직 미진행. Claude 개발 작업의 완료 조건에 포함.

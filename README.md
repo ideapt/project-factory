@@ -74,3 +74,5 @@ Python이 없다면 `prototype/index.html`을 직접 열어 작성·문서 다�
 - [복사할 개발 지시문](docs/claude-handoff/06-claude-instructions.md)
 - 대상: 공통 10개 항목·표·근거·미확인 규칙의 생성 기능 업그레이드
 - 상태: 개발 문서 준비 / 해당 업그레이드 구현 전
+- 개정 지시: 구현·검증·기존 공개 사이트 배포까지
+- [Claude 업로드용 ZIP (2026-10-30)](downloads/project-factory-claude-handoff-2026-10-30.zip)

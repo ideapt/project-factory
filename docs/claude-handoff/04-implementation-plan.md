@@ -14,7 +14,7 @@
 - 기존 파일·OCR·근거·통계 기능 유지.
 - 저장 키 `project-factory-planning-v03` 유지.
 - 버전 상승 시 0.3~0.7 복원 명시 유지.
-- 단계별 검사·의미 있는 커밋. 최종 배포는 검증 완료 상태와 구분해 보고.
+- 단계별 검사·의미 있는 커밋. 검증 후 기존 공개 사이트 배포까지 진행하며 검사·배포·실제 반영을 구분해 보고.
 
 ## 우선 검토할 실패 조건
 
@@ -85,7 +85,7 @@ provenance = 'input' | 'source' | 'assumption' | 'calculated' | 'proposal' | 'un
 - [ ] 비동기 생성 도중 입력을 바꿔도 한 파일 안에 다른 시점 데이터가 섞이지 않게 입력 스냅샷 사용.
 - [ ] 생성 실패 시 오류 안내·버튼 복구·입력 보존 확인 후 커밋.
 
-## 단계 4 예시·검사·설명·배포 준비
+## 단계 4 예시·검사·설명·공개 배포
 
 - 수정: `scripts/check-planning.cjs`, `check-draft.cjs`, `check-draft-style.cjs`, `check-export.cjs`, `build-web.cjs`.
 - 신규 권장: `scripts/check-plan-structure.cjs`; 실제 추가 시 `package.json`의 check에 연결.
@@ -95,7 +95,10 @@ provenance = 'input' | 'source' | 'assumption' | 'calculated' | 'proposal' | 'un
 - [ ] 실제 브라우저 입력·백업·복원·생성·다운로드 확인.
 - [ ] DOCX·PDF 실제 파일의 목차·다열 표·근거·수치·미확인 대조.
 - [ ] 운영자·시험·일반 사용자 통계·동의 회귀 검사.
-- [ ] 결과·미해결 제한·실제 배포 여부 작성 후 검토 요청.
+- [ ] 검증한 변경을 기존 GitHub Pages 절차로 공개 배포.
+- [ ] 배포 작업 성공·공개 사이트 실제 반영을 각각 확인.
+- [ ] 공개 사이트에서 10개 항목·입력표·워드/PDF 다운로드 재점검.
+- [ ] 결과·미해결 제한·배포 주소·검사 증거 보고. 권한·로그인 등 필요한 사용자 조작만 요청.
 
 ## 명령
 
